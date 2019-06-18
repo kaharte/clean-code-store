@@ -12,6 +12,6 @@ public class CleanCodeStoreApplicationTests {
 	@Test
 	public void contextLoads() {
 	}
-	
+
 
 }
