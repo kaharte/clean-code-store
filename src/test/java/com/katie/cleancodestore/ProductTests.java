@@ -16,9 +16,9 @@ import java.util.List;
 public class ProductTests {
 
     //default implementation is SimpleJpaRepository
-    ProductRepository repository;
-    Product dongle;
-    Product headphones;
+    private ProductRepository repository;
+    private Product dongle = new Product();
+    private Product headphones = new Product();
 
     @Autowired
     public void setProductRepository(ProductRepository productRepository) {
@@ -27,11 +27,9 @@ public class ProductTests {
 
     @Before
     public void setUp() {
-        dongle = new Product();
         dongle.setName("Dongle");
         repository.save(dongle);
 
-        headphones = new Product();
         headphones.setName("Headphones");
         repository.save(headphones);
     }
@@ -39,12 +37,13 @@ public class ProductTests {
     @Test
     public void productShouldReturnCorrectName() {
         Assert.assertEquals("Dongle", dongle.getName());
+        Assert.assertEquals("Headphones", headphones.getName());
     }
 
     @Test
     public void productShouldBeAddedToDatabase() {
         List<Product> productList = repository.findAll();
-        
+
         Assert.assertTrue(productList.contains(dongle));
         Assert.assertTrue(productList.contains(headphones));
 
@@ -67,6 +66,14 @@ public class ProductTests {
         Assert.assertNotNull(product2.getId());
 
         Assert.assertNotEquals(product1.getId(), product2.getId());
+    }
+
+    @Test
+    public void productsShouldNotBeDuplicated() {
+        Product dongle2 = new Product();
+        dongle2.setName("dongle");
+
+        Assert.assertTrue(dongle == dongle2);
     }
 
 }
