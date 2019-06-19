@@ -17,7 +17,8 @@ public class ProductTests {
 
     //default implementation is SimpleJpaRepository
     ProductRepository repository;
-    Product product;
+    Product dongle;
+    Product headphones;
 
     @Autowired
     public void setProductRepository(ProductRepository productRepository) {
@@ -26,21 +27,26 @@ public class ProductTests {
 
     @Before
     public void setUp() {
-        product = new Product();
-        product.setName("Dongle");
-        repository.save(product);
+        dongle = new Product();
+        dongle.setName("Dongle");
+        repository.save(dongle);
+
+        headphones = new Product();
+        headphones.setName("Headphones");
+        repository.save(headphones);
     }
 
     @Test
     public void productShouldReturnCorrectName() {
-        Assert.assertEquals("Dongle", product.getName());
+        Assert.assertEquals("Dongle", dongle.getName());
     }
 
     @Test
     public void productShouldBeAddedToDatabase() {
         List<Product> productList = repository.findAll();
-
-        Assert.assertTrue(productList.size() == 1);
+        
+        Assert.assertTrue(productList.contains(dongle));
+        Assert.assertTrue(productList.contains(headphones));
 
         Assert.assertNotNull(repository.findAll());
     }
