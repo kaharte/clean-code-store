@@ -13,6 +13,15 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "")
     Long id;
     String name;
+    Double price;
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 
     public void setName(String name) {
         this.name = name;

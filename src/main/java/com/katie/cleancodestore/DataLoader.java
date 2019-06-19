@@ -16,19 +16,24 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Product blueChair = new Product();
-        blueChair.setName("Blue chair");
-        productRepository.save(blueChair);
-        System.out.println("Blue chair saved " + blueChair);
+//        Product blueChair = new Product();
+//        blueChair.setName("Blue chair");
+//        productRepository.save(blueChair);
+//        System.out.println("Blue chair saved " + blueChair);
+//
+//        Product redChair = new Product();
+//        redChair.setName("Red chair");
+//        productRepository.save(redChair);
+//        System.out.println("Red chair saved " + redChair);
+//
+//        Product faucetHandle = new Product();
+//        faucetHandle.setName("Faucet handle");
+//        productRepository.save(faucetHandle);
+//        System.out.println("Faucet handle saved " + faucetHandle);
 
-        Product redChair = new Product();
-        redChair.setName("Red chair");
-        productRepository.save(redChair);
-        System.out.println("Red chair saved " + redChair);
-
-        Product faucetHandle = new Product();
-        faucetHandle.setName("Faucet handle");
-        productRepository.save(faucetHandle);
-        System.out.println("Faucet handle saved " + faucetHandle);
+        ProductSaver.saveProduct("Blue Chair", 399.99);
+        ProductSaver.saveProduct("Red Chair", 399.99);
+        ProductSaver.saveProduct("Faucet Handle", 59.99);
+        ProductSaver.saveProduct("Blue Chair", 299.99);
     }
 }
