@@ -1,6 +1,8 @@
 package com.katie.cleancodestore;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Objects;
 
@@ -8,7 +10,8 @@ import java.util.Objects;
 public class Product {
 
     @Id
-    String id;
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "")
+    Long id;
     String name;
 
     public void setName(String name) {
@@ -19,12 +22,16 @@ public class Product {
         return name;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 
     @Override

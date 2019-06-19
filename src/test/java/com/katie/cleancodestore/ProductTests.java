@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class ProductTests {
@@ -26,7 +28,6 @@ public class ProductTests {
     public void setUp() {
         product = new Product();
         product.setName("Dongle");
-        product.setId("123");
         repository.save(product);
     }
 
@@ -37,11 +38,11 @@ public class ProductTests {
 
     @Test
     public void productShouldBeAddedToDatabase() {
+        List<Product> productList = repository.findAll();
 
-        String id = product.getId();
+        Assert.assertTrue(productList.size() == 1);
 
-        Assert.assertNotNull(repository.getOne(id));
-        Assert.assertEquals(product, repository.getOne(id));
+        Assert.assertNotNull(repository.findAll());
     }
 
     @Test
@@ -49,8 +50,15 @@ public class ProductTests {
         Product product1 = new Product();
         Product product2 = new Product();
 
-        Assert.assertNotNull(repository.getOne(product1.getId()));
-        Assert.assertNotNull(repository.getOne(product2.getId()));
+        //ID is generated when you save to repo
+        repository.save(product1);
+        repository.save(product2);
+
+        System.out.println(product1.getId());
+        System.out.println(product2.getId());
+
+        Assert.assertNotNull(product1.getId());
+        Assert.assertNotNull(product2.getId());
 
         Assert.assertNotEquals(product1.getId(), product2.getId());
     }
