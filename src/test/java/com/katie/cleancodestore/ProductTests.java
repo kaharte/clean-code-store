@@ -19,6 +19,7 @@ public class ProductTests {
     private ProductRepository repository;
     private Product dongle = new Product();
     private Product headphones = new Product();
+    private Product dongle2 = new Product();
 
     @Autowired
     public void setProductRepository(ProductRepository productRepository) {
@@ -27,11 +28,14 @@ public class ProductTests {
 
     @Before
     public void setUp() {
-        dongle.setName("Dongle");
-        repository.save(dongle);
+//        dongle.setName("Dongle");
+//        repository.save(dongle);
+//
+//        headphones.setName("Headphones");
+//        repository.save(headphones);
 
-        headphones.setName("Headphones");
-        repository.save(headphones);
+        ProductSaver.saveProduct("Dongle", 15.99);
+        ProductSaver.saveProduct("Headphones", 49.99);
     }
 
     @Test
@@ -70,10 +74,11 @@ public class ProductTests {
 
     @Test
     public void productsShouldNotBeDuplicated() {
-        Product dongle2 = new Product();
-        dongle2.setName("dongle");
 
-        Assert.assertTrue(dongle == dongle2);
+        ProductSaver.saveProduct("Dongle", 14.99);
+
+        Assert.assertTrue(repository.findAll().contains(dongle));
+        Assert.assertFalse(repository.findAll().contains(dongle2));
     }
 
 }
