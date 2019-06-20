@@ -8,7 +8,7 @@ import java.util.List;
 
 @Component
 public class ProductSaver {
-    private static Product product;
+    private static Product product = new Product();
     private static ProductRepository repository;
 
     @Autowired
